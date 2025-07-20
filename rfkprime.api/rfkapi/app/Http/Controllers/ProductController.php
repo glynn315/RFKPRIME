@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class ProductController extends Controller
+{
+    public function displayList(){
+        $product = Product::all();
+
+        return response()->json($product);
+    }
+
+    public function addProduct(Request $request){
+        $validatedData = $request->validate([
+            'supplier_id' => 'required',
+            'product_name' => 'string|required',
+            'product_volume' => 'string|required',
+            'product_quantity' => 'string|required',
+            'product_pricepc' => 'string|required',
+            'product_pricebulk' => 'string|required',
+            'product_status' => 'string|required',
+        ]);
+
+        $validatedData['product_id'] = Str::uuid()->toString();
+        return Product::create($validatedData);
+    }
+}
