@@ -20,8 +20,8 @@ class ProductController extends Controller
             'product_name' => 'string|required',
             'product_volume' => 'string|required',
             'product_quantity' => 'string|required',
-            'product_pricepc' => 'string|required',
-            'product_pricebulk' => 'string|required',
+            'product_pricepc' => 'integer|required',
+            'product_pricebulk' => 'integer|required',
             'product_status' => 'string|required',
         ]);
 
