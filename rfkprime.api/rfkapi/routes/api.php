@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
@@ -25,3 +26,6 @@ Route::post('/product', [ProductController::class,'addProduct']);
 
 Route::get('/customer', [CustomerController::class,'displayList']);
 Route::post('/customer', [CustomerController::class,'addCustomer']);
+
+Route::get('/cart', [CartController::class,'displayCart']);
+Route::post('/cart', [CartController::class,'addCart']);
