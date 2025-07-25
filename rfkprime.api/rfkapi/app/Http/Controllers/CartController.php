@@ -23,7 +23,7 @@ class CartController extends Controller
             'product_id' => 'string|required',
             'quantity' => 'integer|required',
             'cart_status' => 'string|required',
-            'product_price' => 'string|required',
+            'product_price' => 'integer|required',
         ]);
 
         $cart_info['cart_id'] = $countValue + 1 + Str::random(5);

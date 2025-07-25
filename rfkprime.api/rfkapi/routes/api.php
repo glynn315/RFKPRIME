@@ -22,6 +22,7 @@ Route::post('/supplier', [SupplierController::class,'addSupplier']);
 
 
 Route::get('/product', [ProductController::class,'displayList']);
+Route::get('/product/{id}', [ProductController::class,'displaySeelctedbyId']);
 Route::post('/product', [ProductController::class,'addProduct']);
 
 Route::get('/customer', [CustomerController::class,'displayList']);

@@ -14,6 +14,12 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    public function displaySeelctedbyId($id){
+        $product = Product::where('product_id', '=' , $id)->first();
+
+        return response()->json($product);
+    }
+
     public function addProduct(Request $request){
         $validatedData = $request->validate([
             'supplier_id' => 'required',
