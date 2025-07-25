@@ -17,6 +17,7 @@ class CartController extends Controller
 
     public function addCart(Request $request)
     {
+        $currentDateReference = date("Ymd");
         $countValue = Cart::where('cart_status', '=', 'COMPLETE')->distinct()->count('*');
 
         $cart_info = $request->validate([
@@ -26,8 +27,8 @@ class CartController extends Controller
             'product_price' => 'integer|required',
         ]);
 
-        $cart_info['cart_id'] = $countValue + 1 + Str::random(5);
+        $cart_info['cart_id'] = 'CRT-' . $currentDateReference .'-'. $countValue;
 
-        return response()->json($cart_info);
+        return Cart::create($cart_info);
     }
 }
