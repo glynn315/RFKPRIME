@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserAccountController;
@@ -29,4 +30,9 @@ Route::get('/customer', [CustomerController::class,'displayList']);
 Route::post('/customer', [CustomerController::class,'addCustomer']);
 
 Route::get('/cart', [CartController::class,'displayCart']);
+Route::get('/cart/Active', [CartController::class,'displayCartActive']);
 Route::post('/cart', [CartController::class,'addCart']);
+Route::post('/cart/update', [CartController::class,'updateCart']);
+
+Route::get('/payment', [PaymentController::class,'displayPayment']);
+Route::post('/payment', [PaymentController::class,'storePayment']);

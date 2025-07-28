@@ -16,8 +16,9 @@ class PaymentController extends Controller
 
     public function storePayment(Request $request){
         $paymentData = $request->validate([
+            'cart_id' => 'string|required',
             'payment_method' => 'string|required',
-            'payment_amount' => 'string|required',
+            'payment_amount' => 'integer',
             'payment_status' => 'string|required',
         ]);
 

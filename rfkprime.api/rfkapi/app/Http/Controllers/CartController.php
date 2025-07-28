@@ -14,6 +14,12 @@ class CartController extends Controller
 
         return response()->json($display);
     }
+    public function displayCartActive()
+    {
+        $display = Cart::where('cart_status' , '=' , 'ACTIVE')->get();
+
+        return response()->json($display);
+    }
 
     public function addCart(Request $request)
     {
@@ -30,5 +36,12 @@ class CartController extends Controller
         $cart_info['cart_id'] = 'CRT-' . $currentDateReference .'-'. $countValue;
 
         return Cart::create($cart_info);
+    }
+
+    public function updateCart(Request $request){
+        $request= Cart::where('cart_status','=','ACTIVE')
+        ->update(['cart_status' => 'COMPLETE']);
+
+        return response()->json($request); 
     }
 }
