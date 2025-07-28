@@ -19,6 +19,8 @@ class PaymentController extends Controller
             'cart_id' => 'string|required',
             'payment_method' => 'string|required',
             'payment_amount' => 'integer',
+            'terms' => 'integer',
+            'percentage' => 'integer',
             'payment_status' => 'string|required',
         ]);
 

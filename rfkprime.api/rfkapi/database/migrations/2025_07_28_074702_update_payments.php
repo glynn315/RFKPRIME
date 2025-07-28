@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('cart_id');
-            $table->dropColumn('order_id');
+            $table->integer('terms')->nullable();
+            $table->integer('percentage')->nullable();
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('cart_id');
-            $table->dropColumn('order_id');
+            $table->integer('terms')->nullable();
+            $table->integer('percentage')->nullable();
         });
     }
 };
