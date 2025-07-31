@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +38,9 @@ Route::post('/cart/update', [CartController::class,'updateCart']);
 
 Route::get('/payment', [PaymentController::class,'displayPayment']);
 Route::post('/payment', [PaymentController::class,'storePayment']);
+
+Route::get('/terms', [TermsController::class,'displayTerms']);
+Route::post('/terms', [TermsController::class,'addPaymentterms']);
+
+Route::get('/orders', [OrderController::class,'displayList']);
+Route::post('/orders', [OrderController::class,'addOrders']);

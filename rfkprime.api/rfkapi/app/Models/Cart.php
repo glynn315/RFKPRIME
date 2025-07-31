@@ -15,5 +15,7 @@ class Cart extends Model
         'cart_status',
         'product_id',
         'cart_id',
+        'discount',
+        'vat',
     ];
 }

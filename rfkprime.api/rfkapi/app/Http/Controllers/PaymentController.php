@@ -16,16 +16,10 @@ class PaymentController extends Controller
 
     public function storePayment(Request $request){
         $paymentData = $request->validate([
-            'cart_id' => 'string|required',
-            'payment_method' => 'string|required',
-            'payment_amount' => 'integer',
-            'terms' => 'integer',
-            'percentage' => 'integer',
+            'payment_amount' => 'decimal:2',
             'payment_status' => 'string|required',
+            'order_id' => 'string | required',
         ]);
-
-        $paymentData['payment_id'] = Str::uuid()->toString();
-
         return Payment::create($paymentData);
     }
 }

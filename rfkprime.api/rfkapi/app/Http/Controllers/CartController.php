@@ -30,7 +30,9 @@ class CartController extends Controller
             'product_id' => 'string|required',
             'quantity' => 'integer|required',
             'cart_status' => 'string|required',
-            'product_price' => 'integer|required',
+            'product_price' => 'decimal:2|required',
+            'discount' => 'integer',
+            'vat' => 'integer|required',
         ]);
 
         $cart_info['cart_id'] = 'CRT-' . $currentDateReference .'-'. $countValue;
