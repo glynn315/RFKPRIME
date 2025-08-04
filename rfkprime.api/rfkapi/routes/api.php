@@ -40,7 +40,11 @@ Route::get('/payment', [PaymentController::class,'displayPayment']);
 Route::post('/payment', [PaymentController::class,'storePayment']);
 
 Route::get('/terms', [TermsController::class,'displayTerms']);
+Route::get('/terms/customerTerms', [TermsController::class,'displayTermsListPerCustomer']);
 Route::post('/terms', [TermsController::class,'addPaymentterms']);
+Route::get('/terms/{orderID}', [TermsController::class,'PaymentListPerCustomer']);
+Route::get('/terms/payment/{id}', [TermsController::class,'displayTermInformation']);
 
 Route::get('/orders', [OrderController::class,'displayList']);
 Route::post('/orders', [OrderController::class,'addOrders']);
+Route::get('/orders/{id}', [OrderController::class,'DisplayUser']);

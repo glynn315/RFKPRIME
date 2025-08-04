@@ -14,6 +14,6 @@ class Terms extends Model
         'schedule_date',
         'payment_date',
         'payment_status',
-        'payment_id',
+        'order_id',
     ];
 }

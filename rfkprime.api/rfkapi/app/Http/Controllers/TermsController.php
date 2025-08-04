@@ -13,17 +13,45 @@ class TermsController extends Controller
         return response()->json($paymentterms);
     }
 
+    public function displayTermsListPerCustomer(){
+        $earliestTerms = Terms::select('*')
+        ->where('payment_status', 'PENDING')
+        ->whereIn('id', function ($query) {
+            $query->selectRaw('MIN(id)')
+                ->from('terms')
+                ->where('payment_status', 'PENDING')
+                ->groupBy('order_id');
+        })
+        ->get();
+
+    return response()->json($earliestTerms);
+    }
+
+    public function PaymentListPerCustomer($orderID){
+        $displayList = Terms::where('order_id', '=' , $orderID)
+        ->get();
+
+        return response()->json($displayList);
+    }
+    public function displayTermInformation($id){
+        $displayTermsInformation = Terms::where('id', '=' , $id)
+        ->where('payment_status' , '=' , 'PENDING')
+        ->first();
+
+        return response()->json($displayTermsInformation);
+    }
+
     public function addPaymentterms(Request $request){
         $request->validate([
             'amount' => 'decimal:2 | required',
             'initial_date' => 'required|date',
             'terms' => 'required|integer|min:1|max:12',
-            'payment_id' => 'required',
+            'order_id' => 'required',
         ]);
 
         $startDate = Carbon::parse($request->initial_date);
         $terms = (int) $request->terms;
-        $paymentId = $request->payment_id;
+        $paymentId = $request->order_id;
         $amount = $request->amount;
 
         for ($i = 1; $i <= $terms; $i++) {
@@ -34,7 +62,7 @@ class TermsController extends Controller
                 'schedule_date' => $scheduleDate->toDateString(),
                 'payment_date' => null,
                 'payment_status' => 'PENDING',
-                'payment_id' => $paymentId,
+                'order_id' => $paymentId,
             ]);
         }
 

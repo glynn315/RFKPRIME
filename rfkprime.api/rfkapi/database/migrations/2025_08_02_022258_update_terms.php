@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('payments', function (Blueprint $table) {
-            // $table->uuid('order_id');
-            // $table->foreign('order_id')->references('order_id')->on('orders');
+        Schema::table('terms', function (Blueprint $table) {
+            
+            $table->dropColumn('payment_id');
+            $table->uuid('order_id');
+            $table->dropForeign(['payment_id']);                    
+            $table->foreign('order_id')->references('order_id')->on('orders');
         });
     }
 
@@ -22,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('payments', function (Blueprint $table) {
+        Schema::table('terms', function (Blueprint $table) {
             //
         });
     }

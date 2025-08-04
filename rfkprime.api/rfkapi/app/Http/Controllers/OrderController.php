@@ -14,6 +14,19 @@ class OrderController extends Controller
         return response()->json($product);
     }
 
+    public function DisplayUser($id){
+        $order = Orders::with('customer')->where('order_id','=', $id)->firstOrFail();
+
+        $customer = $order->customer;
+
+        return response()->json([
+            'first_name' => $customer?->customer_fname,
+            'middle_name' => $customer?->customer_mname,
+            'last_name' => $customer?->customer_lname,
+            'contact_number' => $customer?->contact_number,
+        ]);
+    }
+
     public function addOrders(Request $request){
         $validatedData = $request->validate([
             'customer_id' => 'required',

@@ -20,4 +20,9 @@ class Customer extends Model
         'customer_zip',
         'customer_status',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'customer_id', 'id');
+    }
 }
