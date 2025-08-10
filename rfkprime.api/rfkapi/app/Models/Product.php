@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'product_id'; // 👈 tell Laravel your PK column
+    public $incrementing = false;         // if it's not auto-increment
+    protected $keyType = 'string'; 
     protected $fillable = [
         'product_id',
         'supplier_id',

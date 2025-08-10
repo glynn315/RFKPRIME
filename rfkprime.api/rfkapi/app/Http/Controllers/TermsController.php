@@ -68,4 +68,21 @@ class TermsController extends Controller
 
         return response()->json(['message' => 'Payment terms created successfully']);
     }
+    public function updatePaymentStatus(Request $request, $id)
+    {
+        $request->validate([
+            'payment_status' => 'required|string|in:PENDING,PAID',
+            'payment_date' => 'nullable|date'
+        ]);
+
+        $term = Terms::findOrFail($id);
+        $term->payment_status = $request->payment_status;
+        $term->payment_date = date("Y-m-d");
+        $term->save();
+
+        return response()->json([
+            'message' => 'Payment status updated successfully.',
+            'data' => $term
+        ]);
+    }
 }

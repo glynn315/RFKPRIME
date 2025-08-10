@@ -24,6 +24,9 @@ class OrderController extends Controller
             'middle_name' => $customer?->customer_mname,
             'last_name' => $customer?->customer_lname,
             'contact_number' => $customer?->contact_number,
+            'contact_person' => $customer?->contact_person,
+            'province' => $customer?->customer_province,
+            'city' => $customer?->customer_city,
         ]);
     }
 

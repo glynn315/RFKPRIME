@@ -25,8 +25,11 @@ Route::post('/supplier', [SupplierController::class,'addSupplier']);
 
 
 Route::get('/product', [ProductController::class,'displayList']);
+Route::get('/product/inventory', [ProductController::class, 'inventoryList']);
 Route::get('/product/{id}', [ProductController::class,'displaySeelctedbyId']);
 Route::post('/product', [ProductController::class,'addProduct']);
+Route::post('/product/deduct', [ProductController::class, 'updateQuantity']);
+
 
 Route::get('/customer', [CustomerController::class,'displayList']);
 Route::post('/customer', [CustomerController::class,'addCustomer']);
@@ -44,7 +47,18 @@ Route::get('/terms/customerTerms', [TermsController::class,'displayTermsListPerC
 Route::post('/terms', [TermsController::class,'addPaymentterms']);
 Route::get('/terms/{orderID}', [TermsController::class,'PaymentListPerCustomer']);
 Route::get('/terms/payment/{id}', [TermsController::class,'displayTermInformation']);
+Route::put('/terms/{id}/status', [TermsController::class, 'updatePaymentStatus']);
 
 Route::get('/orders', [OrderController::class,'displayList']);
 Route::post('/orders', [OrderController::class,'addOrders']);
 Route::get('/orders/{id}', [OrderController::class,'DisplayUser']);
+
+Route::get('/products', fn() => \App\Models\Product::all());
+Route::get('/customers', fn() => \App\Models\Customer::all());
+Route::get('/sold-items', function() {
+    return DB::table('carts')
+        ->join('products', 'carts.product_id', '=', 'products.product_id')
+        ->select('products.product_name', DB::raw('SUM(carts.quantity) as quantity_sold'), DB::raw('SUM(carts.quantity * carts.product_price) as total_amount'))
+        ->groupBy('products.product_name')
+        ->get();
+});
