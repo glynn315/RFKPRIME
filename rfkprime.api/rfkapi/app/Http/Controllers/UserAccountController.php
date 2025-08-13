@@ -25,6 +25,7 @@ class UserAccountController extends Controller
             'user_status' => 'string|required',
             'user_username' => 'string|required',
             'user_password' => 'string|required',
+            'userRole' => 'string|required'
         ]);
 
         $validatedData['user_id'] = Str::uuid()->toString();

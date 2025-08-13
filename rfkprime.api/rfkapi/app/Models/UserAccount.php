@@ -1,35 +1,35 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-class UserAccount extends Model
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+class UserAccount extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
-        'user_id',
-        'user_fname',
-        'user_mname',
-        'user_lname',
-        'user_province',
-        'user_city',
-        'user_zip',
-        'user_status',
-        'user_username',
-        'user_password',
+        'user_id', 'user_fname', 'user_mname', 'user_lname',
+        'user_province', 'user_city', 'user_zip',
+        'user_status', 'user_username', 'user_password','userRole'
     ];
 
-    protected $hidden = [
-        'user_password',
-    ];
+    protected $hidden = ['user_password'];
 
-    protected function casts(): array
+    public function getAuthPassword()
     {
-        return [
-            'user_password' => 'hashed',
-        ];
+        return $this->user_password;
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
