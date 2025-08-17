@@ -21,7 +21,7 @@ class UserAccountController extends Controller
             'user_lname' => 'string|required',
             'user_province' => 'string|required',
             'user_city' => 'string|required',
-            'user_zip' => 'string|required',
+            'user_zip' => 'integer|required',
             'user_status' => 'string|required',
             'user_username' => 'string|required',
             'user_password' => 'string|required',
@@ -32,5 +32,41 @@ class UserAccountController extends Controller
         $validatedData['user_password'] = bcrypt($validatedData['user_password']);
 
         return UserAccount::create($validatedData);
+    }
+
+    public function updateUser(Request $request, $id){
+        $user = UserAccount::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'user_fname' => 'string|required',
+            'user_mname' => 'string|required',
+            'user_lname' => 'string|required',
+            'user_province' => 'string|required',
+            'user_city' => 'string|required',
+            'user_zip' => 'integer|required',
+            'user_status' => 'string|required',
+            'user_username' => 'string|required',
+            'user_password' => 'nullable|string',
+            'userRole' => 'string|required'
+        ]);
+
+        // If password is provided, hash it
+        if(!empty($validatedData['user_password'])){
+            $validatedData['user_password'] = bcrypt($validatedData['user_password']);
+        } else {
+            unset($validatedData['user_password']);
+        }
+
+        $user->update($validatedData);
+
+        return response()->json(['message' => 'User updated successfully']);
+    }
+
+    // 🔹 Soft Remove User (set status to REMOVED)
+    public function removeUser($id){
+        $user = UserAccount::findOrFail($id);
+        $user->update(['user_status' => 'REMOVED']);
+
+        return response()->json(['message' => 'User removed successfully']);
     }
 }

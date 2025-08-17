@@ -9,6 +9,10 @@ class Supplier extends Model
 {
     protected $table = 'supplier_information';
 
+     protected $primaryKey = 'supplier_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'supplier_id',
         'supplier_name',

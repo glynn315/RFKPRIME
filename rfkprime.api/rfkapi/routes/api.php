@@ -28,20 +28,25 @@ Route::get('/documents', [DocumentController::class, 'index']);
 
 Route::get('/userAccount', [UserAccountController::class,'displayList']);
 Route::post('/userAccount', [UserAccountController::class,'addUser']);
+Route::put('/userAccount/{id}', [UserAccountController::class, 'updateUser']);
+Route::delete('/userAccount/{id}', [UserAccountController::class, 'removeUser']);
 
 Route::get('/supplier', [SupplierController::class,'displayList']);
 Route::post('/supplier', [SupplierController::class,'addSupplier']);
-
+Route::put('/supplier/{id}', [SupplierController::class, 'updateSupplier']);
+Route::delete('/supplier/remove/{id}', [SupplierController::class, 'removeSupplier']);
 
 Route::get('/product', [ProductController::class,'displayList']);
 Route::get('/product/inventory', [ProductController::class, 'inventoryList']);
 Route::get('/product/{id}', [ProductController::class,'displaySeelctedbyId']);
 Route::post('/product', [ProductController::class,'addProduct']);
 Route::post('/product/deduct', [ProductController::class, 'updateQuantity']);
-
+Route::post('/product/add-stocks/{id}', [ProductController::class, 'addStocks']);
 
 Route::get('/customer', [CustomerController::class,'displayList']);
 Route::post('/customer', [CustomerController::class,'addCustomer']);
+Route::put('/customer/{id}', [CustomerController::class, 'updateCustomer']);
+Route::patch('/customer/{id}/status', [CustomerController::class, 'updateStatus']);
 
 Route::get('/cart', [CartController::class,'displayCart']);
 Route::get('/cart/Active', [CartController::class,'displayCartActive']);
